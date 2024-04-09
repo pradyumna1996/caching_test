@@ -3,17 +3,26 @@ package com.crudwithcache.crudspringwithcache.controller;
 import com.crudwithcache.crudspringwithcache.handler.MyResponseHandler;
 import com.crudwithcache.crudspringwithcache.model.Employee;
 import com.crudwithcache.crudspringwithcache.service.EmployeeService;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Key;
 import java.util.List;
 
 /**
  * A Rest Controller to Save , Get and Delete Employee
  */
 @RestController
+
 public class EmployeeController {
+
+
 
     /**
      * Bean Injection of Employee Service
@@ -112,7 +121,6 @@ public class EmployeeController {
         return  ResponseEntity.unprocessableEntity().body("Deletion Unsuccessful");
 
     }
-
 
 
 }

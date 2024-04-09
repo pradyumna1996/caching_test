@@ -3,6 +3,9 @@ package com.crudwithcache.crudspringwithcache.service;
 import com.crudwithcache.crudspringwithcache.model.Employee;
 import com.crudwithcache.crudspringwithcache.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -45,6 +48,7 @@ public class EmployeeServiceImpl implements  EmployeeService {
      * @return True if deleted
      */
     @Override
+    @CacheEvict(cacheNames = "employees", key = "#id")
     public boolean deleteEmployeeById(Long id) {
         employeeRepository.deleteById(id);
         return true;
@@ -57,6 +61,7 @@ public class EmployeeServiceImpl implements  EmployeeService {
      * @return updated Employee
      */
     @Override
+    @CachePut(cacheNames = "employees", key = "#employee.id")
     public Employee updateEmployeeById(Employee employee, Long id) {
 
         Employee updatedEmployee = new Employee();
@@ -81,7 +86,9 @@ public class EmployeeServiceImpl implements  EmployeeService {
      * @return Specific employee of passed id
      */
     @Override
+    @Cacheable(cacheNames = "employees",key="#id")
     public Employee getEmployeeById(Long id) {
+        System.out.println(" Fetched From Db !!!");
         return employeeRepository.getEmployeeById(id);
     }
 

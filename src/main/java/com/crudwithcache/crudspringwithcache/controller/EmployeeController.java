@@ -43,7 +43,7 @@ public class EmployeeController {
        if(!empList.isEmpty()){
            return MyResponseHandler.generateResponse(true, HttpStatus.OK,empList);
        }
-        return MyResponseHandler.generateResponse(false, HttpStatus.NO_CONTENT,empList);
+        return MyResponseHandler.generateResponse(false, HttpStatus.NO_CONTENT,null);
     }
 
     /**
@@ -53,9 +53,7 @@ public class EmployeeController {
      */
     @PostMapping("/employee")
     public ResponseEntity<Object> saveEmployee(@RequestBody Employee employee){
-
             Employee employee1 = employeeService.saveEmployee(employee);
-
         if(!(employee1==null)){
             return MyResponseHandler.generateResponse(true,HttpStatus.CREATED,employee);
         }
